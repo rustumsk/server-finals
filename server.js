@@ -83,7 +83,7 @@ app.post('/upload-image', async (req, res) => {
         res.status(500).json({ error: 'Failed to upload image to Cloudinary.' });
     }
 });
-
+popul();
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
