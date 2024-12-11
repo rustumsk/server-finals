@@ -16,8 +16,8 @@ cloudinary.config({
 });
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' })); // Increase limit to 10MB
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Increase limit to 10MB
 
 app.get('/', async (req, res) => {
     try {
@@ -69,20 +69,22 @@ app.post('/update', async (req,res) =>{
 
 app.post('/upload-image', async (req, res) => {
     const { base64Image } = req.body;
-
+  
     if (!base64Image) {
-        return res.status(400).json({ error: 'No base64 image provided.' });
+      return res.status(400).json({ error: 'No base64 image provided.' });
     }
-
+  
     try {
-        const response = await cloudinary.uploader.upload(base64Image, {
-        });
-        res.json({ url: response.secure_url });
+      const response = await cloudinary.uploader.upload(base64Image, {
+        resource_type: 'auto', // Optional: Automatically detect the type (image or video)
+        folder: 'user-avatars', // Optional: Store in a specific folder
+      });
+      res.json({ url: response.secure_url });
     } catch (error) {
-        console.error('Error uploading image to Cloudinary:', error);
-        res.status(500).json({ error: 'Failed to upload image to Cloudinary.' });
+      console.error('Error uploading image to Cloudinary:', error);
+      res.status(500).json({ error: 'Failed to upload image to Cloudinary.' });
     }
-});
+  });
 popul();
 const PORT = process.env.PORT || 3000;
 
