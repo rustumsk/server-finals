@@ -16,8 +16,8 @@ cloudinary.config({
 });
 
 app.use(cors());
-app.use(express.json({ limit: '10mb' })); // Increase limit to 10MB
-app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Increase limit to 10MB
+app.use(express.json({ limit: '10mb' })); 
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.get('/', async (req, res) => {
     try {
@@ -76,8 +76,8 @@ app.post('/upload-image', async (req, res) => {
   
     try {
       const response = await cloudinary.uploader.upload(base64Image, {
-        resource_type: 'auto', // Optional: Automatically detect the type (image or video)
-        folder: 'user-avatars', // Optional: Store in a specific folder
+        resource_type: 'auto', 
+        folder: 'user-avatars',
       });
       res.json({ url: response.secure_url });
     } catch (error) {
