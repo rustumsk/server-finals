@@ -18,6 +18,9 @@ const popul = async () => {
     try {
         const client = new Client({
             connectionString: process.env.DEVCONNECT,
+            ssl:{
+                rejectUnauthorized: false
+            }
         });
         await client.connect();
         console.log("Connected!");
