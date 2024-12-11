@@ -1,11 +1,11 @@
-import pkg from 'pg';  // Use default import for CommonJS module
-const { Pool } = pkg;  // Destructure to get Client
+import pkg from 'pg'; 
+const { Pool } = pkg; 
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DEVCONNECT,
     ssl: {
       rejectUnauthorized: false 
     }
